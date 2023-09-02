@@ -1,0 +1,9 @@
+/* Reset some default styles */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Define global styles, variables, or other SCSS rules here */
