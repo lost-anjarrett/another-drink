@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Beverage from '../models/Beverage';
 import Drink from '../models/Drink';
-import { DateTime } from '../utils/SerializableDate';
 
 const AddDrinkForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -51,7 +50,7 @@ const AddDrinkForm: React.FC = () => {
                 quantity: parseFloat(formData.quantity),
                 alcoholGrade: parseFloat(formData.alcoholGrade),
             },
-            date: new DateTime(),
+            date: new Date(),
         };
 
         // Get existing data from localStorage
@@ -60,6 +59,7 @@ const AddDrinkForm: React.FC = () => {
 
         // Add the new drink to the list
         drinks.push(newDrink);
+        console.log(typeof newDrink);
 
         // Save the updated list back to localStorage
         localStorage.setItem('drinks', JSON.stringify(drinks));

@@ -9,7 +9,7 @@ const DrinksList: React.FC = () => {
         const grouped: Record<string, Drink[]> = {};
 
         drinks.forEach((drink) => {
-            const dateKey = drink.date.getDate().toDateString();
+            const dateKey = drink.date.toDateString();
             if (!grouped[dateKey]) {
                 grouped[dateKey] = [];
             }
@@ -22,10 +22,17 @@ const DrinksList: React.FC = () => {
     // Load drinks from local storage on component mount
     useEffect(() => {
         const existingData = localStorage.getItem('drinks');
-        const drinks: Drink[] = existingData ? JSON.parse(existingData) : [];
+        const drinks: Drink[] = existingData ? JSON.parse(
+            existingData,
+            (key, value) => {
+                if (key === 'date') {
+                    return new Date(value);
+                }
+                return value;
+            }
+        ) : [];
         const groupedDrinks = groupDrinksByDay(drinks);
         setDrinksByDay(groupedDrinks);
-        console.log(groupedDrinks);
     }, []);
 
     return (
