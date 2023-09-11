@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Beverage from '../models/Beverage';
 import Drink from '../models/Drink';
+import {LocalStorageDrinkRepository} from "../repository/DrinkRepository";
 
 const AddDrinkForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -53,16 +54,8 @@ const AddDrinkForm: React.FC = () => {
             date: new Date(),
         };
 
-        // Get existing data from localStorage
-        const existingData = localStorage.getItem('drinks');
-        const drinks: Drink[] = existingData ? JSON.parse(existingData) : [];
-
-        // Add the new drink to the list
-        drinks.push(newDrink);
-        console.log(typeof newDrink);
-
-        // Save the updated list back to localStorage
-        localStorage.setItem('drinks', JSON.stringify(drinks));
+        const repo = new LocalStorageDrinkRepository();
+        repo.saveDrink(newDrink);
 
         // Clear the form
         setFormData({

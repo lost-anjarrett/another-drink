@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Drink from '../models/Drink';
+import {LocalStorageDrinkRepository} from "../repository/DrinkRepository";
 
 const DrinksList: React.FC = () => {
     const [drinksByDay, setDrinksByDay] = useState<Record<string, Drink[]>>({});
@@ -21,16 +22,8 @@ const DrinksList: React.FC = () => {
 
     // Load drinks from local storage on component mount
     useEffect(() => {
-        const existingData = localStorage.getItem('drinks');
-        const drinks: Drink[] = existingData ? JSON.parse(
-            existingData,
-            (key, value) => {
-                if (key === 'date') {
-                    return new Date(value);
-                }
-                return value;
-            }
-        ) : [];
+        const repo = new LocalStorageDrinkRepository();
+        const drinks = repo.getDrinks();
         const groupedDrinks = groupDrinksByDay(drinks);
         setDrinksByDay(groupedDrinks);
     }, []);

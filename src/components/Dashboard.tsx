@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Drink from '../models/Drink';
+import {LocalStorageDrinkRepository} from "../repository/DrinkRepository";
 
 const Dashboard: React.FC = () => {
     const [drinkData, setDrinkData] = useState<Drink[]>([]);
 
     // Load drinks from local storage on component mount
     useEffect(() => {
-        const existingData = localStorage.getItem('drinks');
-        const drinks: Drink[] = existingData ? JSON.parse(existingData,
-            (key, value) => {
-                if (key === 'date') {
-                    return new Date(value);
-                }
-                return value;
-            }) : [];
+        const repo = new LocalStorageDrinkRepository();
+        const drinks = repo.getDrinks();
         setDrinkData(drinks);
     }, []);
 
