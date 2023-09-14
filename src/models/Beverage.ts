@@ -1,6 +1,7 @@
 interface Beverage {
+    id: number; // unique
     name: string;
-    quantity: number; // Quantity in milliliters
+    suggestedQuantity: number; // Quantity in milliliters
     alcoholGrade: number; // Alcohol grade in percentage
 }
 

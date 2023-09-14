@@ -23,7 +23,7 @@ const DrinksList: React.FC = () => {
     // Load drinks from local storage on component mount
     useEffect(() => {
         const repo = new LocalStorageDrinkRepository();
-        const drinks = repo.getDrinks();
+        const drinks = repo.get();
         const groupedDrinks = groupDrinksByDay(drinks);
         setDrinksByDay(groupedDrinks);
     }, []);
@@ -37,7 +37,7 @@ const DrinksList: React.FC = () => {
                     <ul>
                         {drinksByDay[date].map((drink, index) => (
                             <li key={index}>
-                                {drink.beverage.name} - Quantity: {drink.beverage.quantity} ml, Grade: {drink.beverage.alcoholGrade}%
+                                {drink.beverage.name} - Quantity: {drink.beverage.suggestedQuantity} ml, Grade: {drink.beverage.alcoholGrade}%
                             </li>
                         ))}
                     </ul>

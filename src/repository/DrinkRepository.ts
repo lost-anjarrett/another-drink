@@ -1,14 +1,14 @@
 import Drink from "../models/Drink";
 
 export interface DrinkRepository {
-    saveDrink(drink: Drink): void;
-    getDrinks(): Drink[];
+    save(drink: Drink): void;
+    get(): Drink[];
 }
 
 export class LocalStorageDrinkRepository implements DrinkRepository {
     private storageKey: string = 'drinks';
 
-    saveDrink(drink: Drink): void {
+    save(drink: Drink): void {
 
         // Get existing data from localStorage
         const existingData = localStorage.getItem('drinks');
@@ -21,7 +21,7 @@ export class LocalStorageDrinkRepository implements DrinkRepository {
         localStorage.setItem(this.storageKey, JSON.stringify(drinks));
     }
 
-    getDrinks(): Drink[] {
+    get(): Drink[] {
         const existingData = localStorage.getItem(this.storageKey);
         return existingData ? JSON.parse(
             existingData,

@@ -8,7 +8,7 @@ const Dashboard: React.FC = () => {
     // Load drinks from local storage on component mount
     useEffect(() => {
         const repo = new LocalStorageDrinkRepository();
-        const drinks = repo.getDrinks();
+        const drinks = repo.get();
         setDrinkData(drinks);
     }, []);
 
